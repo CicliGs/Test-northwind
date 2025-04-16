@@ -1,0 +1,5 @@
+SELECT DISTINCT p."ProductName"
+FROM products p
+JOIN order_details od ON p."ProductID" = od."ProductID"
+WHERE od."Quantity" = 10;
+

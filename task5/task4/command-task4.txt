@@ -1,0 +1,5 @@
+SELECT c."CompanyName", o."OrderID"
+FROM orders o
+RIGHT JOIN customers c ON o."CustomerID" = c."CustomerID"
+WHERE o."OrderID" IS NULL;
+

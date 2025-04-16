@@ -1,0 +1,9 @@
+SELECT "Country"
+FROM customers
+INTERSECT
+SELECT "Country"
+FROM suppliers
+EXCEPT
+SELECT "Country"
+FROM employees;
+

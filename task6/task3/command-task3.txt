@@ -1,0 +1,10 @@
+SELECT o."CustomerID", o."ShipCountry", 
+       SUM(od."UnitPrice" * od."Quantity" * (1 - od."Discount")) AS order_price
+FROM orders o
+JOIN order_details od ON o."OrderID" = od."OrderID"
+WHERE o."OrderDate" >= '1997-09-01'
+  AND o."ShipCountry" IN ('Argentina', 'Brazil', 'Venezuela')  -- Ю. Америка
+GROUP BY o."OrderID", o."CustomerID", o."ShipCountry"
+ORDER BY order_price DESC
+LIMIT 3;
+

@@ -1,0 +1,9 @@
+SELECT o."CustomerID", SUM(o."Freight") AS freight_sum
+FROM orders o
+WHERE o."Freight" >= (
+    SELECT AVG("Freight") FROM orders
+)
+  AND o."ShippedDate" BETWEEN '1996-07-16' AND '1996-07-31'
+GROUP BY o."CustomerID"
+ORDER BY freight_sum;
+

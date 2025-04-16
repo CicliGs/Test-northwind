@@ -1,0 +1,10 @@
+SELECT c."CompanyName" AS customer_company, 
+       e."FirstName" || ' ' || e."LastName" AS employee_fullname
+FROM orders o
+JOIN customers c ON o."CustomerID" = c."CustomerID"
+JOIN employees e ON o."EmployeeID" = e."EmployeeID"
+JOIN shippers s ON o."ShipVia" = s."ShipperID"
+WHERE c."City" = 'London'
+  AND e."City" = 'London'
+  AND s."CompanyName" = 'Speedy Express';
+

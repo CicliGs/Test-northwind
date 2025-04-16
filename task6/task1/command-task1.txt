@@ -1,0 +1,11 @@
+SELECT p."ProductName", p."UnitsInStock"
+FROM products p
+WHERE p."UnitsInStock" < (
+    SELECT MIN(avg_quantity)
+    FROM (
+        SELECT AVG(od."Quantity") AS avg_quantity
+        FROM order_details od
+        GROUP BY od."ProductID"
+    ) AS subquery
+);
+

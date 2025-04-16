@@ -1,0 +1,4 @@
+SELECT COUNT(*) AS known_region_customers
+FROM customers
+WHERE "Region" IS NOT NULL;
+

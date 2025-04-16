@@ -1,0 +1,4 @@
+SELECT "FirstName", "LastName", "HomePhone", "Region"
+FROM employees
+WHERE "Region" IS NULL;
+

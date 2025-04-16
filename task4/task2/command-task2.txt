@@ -1,0 +1,6 @@
+SELECT "OrderID", "CustomerID", "Weight", "ShipCountry"
+FROM orders
+WHERE "ShipCountry" LIKE 'N%'
+ORDER BY "Weight" DESC
+LIMIT 10;
+

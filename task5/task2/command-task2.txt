@@ -1,0 +1,11 @@
+SELECT p."ProductName", 
+       p."UnitsInStock", 
+       s."ContactName", 
+       s."Phone"
+FROM products p
+JOIN categories c ON p."CategoryID" = c."CategoryID"
+JOIN suppliers s ON p."SupplierID" = s."SupplierID"
+WHERE c."CategoryName" IN ('Beverages', 'Seafood')
+  AND p."Discontinued" = 0
+  AND p."UnitsInStock" < 20;
+

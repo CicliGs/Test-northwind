@@ -1,0 +1,102 @@
+-- Таблица: Regions
+CREATE TABLE Regions (
+    IdRegion SERIAL PRIMARY KEY,
+    RegionName VARCHAR(100) NOT NULL
+);
+
+-- Таблица: Factories
+CREATE TABLE Factories (
+    IdFactory SERIAL PRIMARY KEY,
+    IdRegion INT NOT NULL,
+    FactoryName VARCHAR(100) NOT NULL,
+    FOREIGN KEY (IdRegion) REFERENCES Regions(IdRegion)
+);
+
+-- Таблица: Machines
+CREATE TABLE Machines (
+    IdMachine SERIAL PRIMARY KEY,
+    IdFactory INT NOT NULL,
+    MachineName VARCHAR(100) NOT NULL,
+    FOREIGN KEY (IdFactory) REFERENCES Factories(IdFactory)
+);
+
+-- Таблица: Dates
+CREATE TABLE Dates (
+    Date DATE PRIMARY KEY,
+    WeekDay VARCHAR(10),
+    Week INT,
+    Month INT,
+    Quarter INT,
+    Year INT
+);
+
+-- Таблица: Products
+CREATE TABLE Products (
+    IdProduct SERIAL PRIMARY KEY,
+    IdItem INT NOT NULL,
+    IdMachine INT NOT NULL,
+    IdFactory INT NOT NULL,
+    ProductName VARCHAR(100),
+    IdPackaging INT,
+    FOREIGN KEY (IdMachine) REFERENCES Machines(IdMachine),
+    FOREIGN KEY (IdFactory) REFERENCES Factories(IdFactory)
+);
+
+-- Таблица: Orders
+CREATE TABLE Orders (
+    IdOrder SERIAL PRIMARY KEY,
+    IdFactory INT NOT NULL,
+    Date DATE NOT NULL,
+    FOREIGN KEY (IdFactory) REFERENCES Factories(IdFactory),
+    FOREIGN KEY (Date) REFERENCES Dates(Date)
+);
+
+-- Таблица: OrderItems
+CREATE TABLE OrderItems (
+    IdOrderItems SERIAL PRIMARY KEY,
+    IdItem INT NOT NULL,
+    IdOrder INT NOT NULL,
+    Date DATE NOT NULL,
+    Type VARCHAR(50),
+    Quantity NUMERIC,
+    UnitMeasure VARCHAR(20),
+    PricePerUnit NUMERIC,
+    CostPerUnit NUMERIC,
+    TotalAmount NUMERIC,
+    FOREIGN KEY (IdOrder) REFERENCES Orders(IdOrder),
+    FOREIGN KEY (Date) REFERENCES Dates(Date)
+);
+
+-- Таблица: DeliveryCost
+CREATE TABLE DeliveryCost (
+    IdDeliveryCost SERIAL PRIMARY KEY,
+    IdOrder INT NOT NULL,
+    Quantity NUMERIC,
+    PricePerUnit NUMERIC,
+    TotalAmount NUMERIC,
+    FOREIGN KEY (IdOrder) REFERENCES Orders(IdOrder)
+);
+
+-- Таблица: WeeklyFixCost
+CREATE TABLE WeeklyFixCost (
+    IdFixCost SERIAL PRIMARY KEY,
+    IdMachine INT NOT NULL,
+    Week INT NOT NULL,
+    FixCostDescription TEXT,
+    TotalAmount NUMERIC,
+    IdRegion INT NOT NULL,
+    FOREIGN KEY (IdMachine) REFERENCES Machines(IdMachine),
+    FOREIGN KEY (IdRegion) REFERENCES Regions(IdRegion)
+);
+
+-- Таблица: WeeklyPackagingCost
+CREATE TABLE WeeklyPackagingCost (
+    IdPackaging SERIAL PRIMARY KEY,
+    Week INT NOT NULL,
+    IdProduct INT NOT NULL,
+    PackagingItem VARCHAR(100),
+    UnitMeasure VARCHAR(20),
+    TotalAmount NUMERIC,
+    FOREIGN KEY (IdProduct) REFERENCES Products(IdProduct)
+);
+

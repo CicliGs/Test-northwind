@@ -1,0 +1,7 @@
+SELECT "ShipCountry", SUM("Freight") AS total_weight
+FROM orders
+WHERE "ShipRegion" IS NOT NULL
+GROUP BY "ShipCountry"
+HAVING SUM("Freight") > 2750
+ORDER BY total_weight DESC;
+

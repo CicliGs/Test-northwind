@@ -1,0 +1,5 @@
+SELECT "Country", COUNT(*) AS supplier_count
+FROM suppliers
+GROUP BY "Country"
+ORDER BY supplier_count DESC;
+
